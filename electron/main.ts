@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
+import isDev from 'electron-is-dev';
 
 // The built directory structure
 //
@@ -11,20 +12,29 @@ import path from 'node:path';
 // │ │ └── preload.js
 // │
 process.env.DIST = path.join(__dirname, '../dist');
-process.env.VITE_PUBLIC = app.isPackaged
-  ? process.env.DIST
-  : path.join(process.env.DIST, '../public');
+process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, '../public');
 
 let win: BrowserWindow | null;
 // 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL'];
 
 function createWindow() {
+  if (isDev) {
+    win?.webContents.openDevTools();
+  }
   win = new BrowserWindow({
     title: 'my stream deck application',
-    width: 500,
-    height: 250,
-    icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
+    width: 450,
+    height: 225,
+    frame: false,
+    transparent: false,
+    // alwaysOnTop: true,
+    focusable: false, //THIS IS THE KEY
+    // closable: true,
+    fullscreenable: false,
+    maximizable: false,
+    resizable: process.env.NODE_ENV === 'development',
+    // icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
