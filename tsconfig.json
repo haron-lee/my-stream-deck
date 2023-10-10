@@ -12,7 +12,8 @@
       "components/*": ["./src/components/*"],
       "interfaces/*": ["./src/data/interfaces/", "./src/data/interfaces/*"],
       "objects/*": ["./src/data/objects/*"],
-      "utils/*": ["./src/utils"]
+      "utils/*": ["./src/utils"],
+      "styles/*": ["./src/styles", "./src/styles/*"]
     },
 
     /* Bundler mode */
@@ -29,6 +30,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "electron"],
+  "include": ["src", "electron", "types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
