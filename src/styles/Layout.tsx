@@ -1,9 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
 type LayoutProps = {
   children: React.ReactNode;
+  opacityCtrl: number;
 };
 
-export default function Layout({ children }: LayoutProps) {
-  return <div className='bg-bg h-screen'>{children}</div>;
+export default function Layout({ children, opacityCtrl }: LayoutProps) {
+  return <SLayout opacityCtrl={opacityCtrl}>{children}</SLayout>;
 }
+
+const SLayout = styled.div<LayoutProps>`
+  ${tw`bg-bg h-screen`}
+  opacity: ${(p) => p.opacityCtrl};
+`;
