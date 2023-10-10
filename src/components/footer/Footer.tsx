@@ -1,20 +1,67 @@
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
-export default function Footer() {
-  const [volume, setVolume] = useState(0);
+type FooterProps = {
+  opacityCtrl: number;
+  changeOpacity: (num: number) => void;
+};
+
+export default function Footer({ opacityCtrl, changeOpacity }: FooterProps) {
+  const controlOpacity = (e: ChangeEvent<HTMLInputElement>) => {
+    // NOTE valueAsNumber는 input의 value값을 number 타입으로 변경해준 것
+    const value = e.target.valueAsNumber;
+    changeOpacity(value);
+  };
+
   return (
-    <>
-      <input
+    <SFooter>
+      <InputRange
         type='range'
-        min={0}
-        max={1}
-        color='gray'
-        step={0.02}
-        value={volume}
-        onChange={(event) => {
-          setVolume(event.target.valueAsNumber);
-        }}
+        id='opacity-range'
+        min='0.2'
+        max='1'
+        step={0.1}
+        value={opacityCtrl}
+        onChange={controlOpacity}
+        opacityZero={opacityCtrl === 30}
       />
-    </>
+    </SFooter>
   );
 }
+
+const SFooter = tw.footer`
+  absolute
+  bottom-0
+  left-0
+  right-0
+  px-2
+  py-2
+  bg-dark-bg
+  box-border
+  flex
+  justify-end
+`;
+
+const InputRange = styled.input<{ opacityZero?: boolean }>`
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 20px;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 10px;
+    width: 10px;
+    margin-top: -2.5px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: ${(props) => (props.opacityZero ? '#d9d9d9' : '#e5e7eb')};
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 5px;
+    background: ${(props) => (props.opacityZero ? '#d9d9d9' : '#e5e7eb')};
+    border-radius: 50%;
+  }
+`;
