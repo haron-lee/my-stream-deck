@@ -27,18 +27,18 @@ function createWindow() {
     width: 450,
     height: 225,
     frame: false,
-    transparent: false,
-    // alwaysOnTop: true,
-    focusable: false, //THIS IS THE KEY
-    // closable: true,
+    transparent: true,
+    alwaysOnTop: true,
+    // focusable: false, //THIS IS THE KEY
     fullscreenable: false,
     maximizable: false,
     resizable: process.env.NODE_ENV === 'development',
-    // icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  // 투명도 조절 ipc넣어주기
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
