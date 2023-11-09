@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 type FooterProps = {
-  opacityCtrl: number;
+  $opacityCtrl: number;
   changeOpacity: (num: number) => void;
 };
 
-export default function Footer({ opacityCtrl, changeOpacity }: FooterProps) {
+export default function Footer({ $opacityCtrl, changeOpacity }: FooterProps) {
   const controlOpacity = (e: ChangeEvent<HTMLInputElement>) => {
     // NOTE valueAsNumber는 input의 value값을 number 타입으로 변경해준 것
     const value = e.target.valueAsNumber;
@@ -22,9 +22,9 @@ export default function Footer({ opacityCtrl, changeOpacity }: FooterProps) {
         min='0.2'
         max='1'
         step={0.1}
-        value={opacityCtrl}
+        value={$opacityCtrl}
         onChange={controlOpacity}
-        opacityZero={opacityCtrl === 30}
+        $opacityZero={$opacityCtrl === 30}
       />
     </SFooter>
   );
@@ -37,13 +37,14 @@ const SFooter = tw.footer`
   right-0
   px-2
   py-2
-  bg-dark-bg
+  bg-slate-300
+  dark:bg-dark-bg
   box-border
   flex
   justify-end
 `;
 
-const InputRange = styled.input<{ opacityZero?: boolean }>`
+const InputRange = styled.input<{ $opacityZero?: boolean }>`
   appearance: none;
   -webkit-appearance: none;
   border-radius: 20px;
@@ -56,12 +57,18 @@ const InputRange = styled.input<{ opacityZero?: boolean }>`
     margin-top: -2.5px;
     cursor: pointer;
     border-radius: 50%;
-    background: ${(props) => (props.opacityZero ? '#d9d9d9' : '#e5e7eb')};
+    background: ${(props) =>
+      props.$opacityZero
+        ? tw`bg-blue-200 dark:bg-[#d9d9d9]`
+        : tw`bg-blue-500 dark:bg-[#e5e7eb]`};
   }
 
   &::-webkit-slider-runnable-track {
     height: 5px;
-    background: ${(props) => (props.opacityZero ? '#d9d9d9' : '#e5e7eb')};
-    border-radius: 50%;
+    background: ${(props) =>
+      props.$opacityZero
+        ? tw`bg-blue-200 dark:bg-[#d9d9d9]`
+        : tw`bg-blue-400 dark:bg-[#e5e7eb]`};
+    border-radius: 10px;
   }
 `;

@@ -44,7 +44,7 @@ export default function Header() {
     <SHeader>
       <div onClick={changePinIcon} tw='cursor-pointer'>
         {pinIconClicked ? (
-          <AiFillPushpin color='gray' />
+          <AiFillPushpin color='#EB5757' />
         ) : (
           <AiOutlinePushpin color='gray' />
         )}
@@ -72,7 +72,8 @@ const SHeader = tw.header`
   py-1
   flex
   justify-between
-  bg-dark-bg
+  bg-slate-200
+  dark:bg-dark-bg
   shadow-md
   box-border
 `;
