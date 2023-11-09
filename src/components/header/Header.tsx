@@ -11,11 +11,33 @@ import './header.css';
 export default function Header() {
   const [pinIconClicked, setPinIconClicked] = useState(false);
   const [settingClicked, setSettingClicked] = useState(false);
+
+  window.ipcRenderer.send('get-window-state');
+  window.ipcRenderer.on('window-state', (_, state) => {
+    setPinIconClicked(state);
+  });
+
   const changePinIcon = () => {
-    setPinIconClicked(!pinIconClicked);
+    if (!pinIconClicked) {
+      setPinIconClicked(true);
+      window.ipcRenderer.send('onTop');
+    } else {
+      setPinIconClicked(false);
+      window.ipcRenderer.send('noTop');
+    }
   };
+
+  // TODO 세팅기능 추가하기
   const changeSettingIcon = () => {
     setSettingClicked(!settingClicked);
+  };
+
+  const changeSmallWindowSize = () => {
+    window.ipcRenderer.send('resize-small');
+  };
+
+  const changeMediumWindowSize = () => {
+    window.ipcRenderer.send('resize-medium');
   };
 
   return (
@@ -29,8 +51,8 @@ export default function Header() {
       </div>
       {/*TODO buttons: S M L로 구성  */}
       <div tw='text-xs'>
-        <SMButton>S</SMButton>
-        <SMButton>M</SMButton>
+        <SMButton onClick={changeSmallWindowSize}>S</SMButton>
+        <SMButton onClick={changeMediumWindowSize}>M</SMButton>
         <SizeButton>L</SizeButton>
       </div>
       <div onClick={changeSettingIcon} tw='cursor-pointer'>
