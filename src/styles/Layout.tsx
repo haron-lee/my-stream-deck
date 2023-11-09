@@ -4,14 +4,14 @@ import tw from 'twin.macro';
 
 type LayoutProps = {
   children: React.ReactNode;
-  opacityCtrl: number;
+  $opacityCtrl: number;
 };
 
-export default function Layout({ children, opacityCtrl }: LayoutProps) {
-  return <SLayout opacityCtrl={opacityCtrl}>{children}</SLayout>;
+export default function Layout({ children, $opacityCtrl }: LayoutProps) {
+  return <SLayout $opacityCtrl={$opacityCtrl}>{children}</SLayout>;
 }
 
 const SLayout = styled.div<LayoutProps>`
-  ${tw`bg-bg h-screen`}
-  opacity: ${(p) => p.opacityCtrl};
+  ${tw`bg-slate-50 dark:bg-bg h-screen`}
+  opacity: ${(p) => p.$opacityCtrl};
 `;

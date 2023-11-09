@@ -13,10 +13,10 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Layout opacityCtrl={opacityCtrl}>
+      <Layout $opacityCtrl={opacityCtrl}>
         <Header />
         <StreamDeck deckState={deckState} />
-        <Footer opacityCtrl={opacityCtrl} changeOpacity={changeOpacity} />
+        <Footer $opacityCtrl={opacityCtrl} changeOpacity={changeOpacity} />
       </Layout>
     </>
   );
