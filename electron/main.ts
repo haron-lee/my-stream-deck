@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen, dialog } from 'electron';
 import path from 'node:path';
 
 // The built directory structure
@@ -106,6 +106,13 @@ ipcMain.on('get-window-state', (e) => {
 });
 ipcMain.on('onTop', () => win?.setAlwaysOnTop(true));
 ipcMain.on('noTop', () => win?.setAlwaysOnTop(false));
+
+//* Dialog 통신
+ipcMain.handle('show-open-dialog', async () => {
+  return await dialog.showOpenDialog({
+    properties: ['openFile', 'openDirectory'],
+  });
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
