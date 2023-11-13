@@ -6,8 +6,7 @@ import Footer from 'components/footer/Footer';
 import GlobalStyles from '@/styles/GlobalStyles';
 
 function App() {
-  const [opacityCtrl, setOpacityCtrl] = useState(0.5);
-  const [deckState, setDeckState] = useState(10);
+  const [opacityCtrl, setOpacityCtrl] = useState(0.7);
   const changeOpacity = (num: number) => setOpacityCtrl(num);
 
   return (
@@ -15,7 +14,7 @@ function App() {
       <GlobalStyles />
       <Layout $opacityCtrl={opacityCtrl}>
         <Header />
-        <StreamDeck deckState={deckState} />
+        <StreamDeck />
         <Footer $opacityCtrl={opacityCtrl} changeOpacity={changeOpacity} />
       </Layout>
     </>
