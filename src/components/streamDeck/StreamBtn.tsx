@@ -1,27 +1,20 @@
-import { useState } from 'react';
 import tw from 'twin.macro';
-import InfoModal from '../modal/InfoModal';
 
 export default function StreamBtn() {
-  const [modal, setModal] = useState(false);
-
-  const openModal = () => {
-    setModal(true);
-  };
-
   return (
     <>
-      <StreamButton onClick={openModal}>
+      <StreamButton>
         <img src='' alt='' />
       </StreamButton>
-      {modal && <InfoModal />}
     </>
   );
 }
 
-const StreamButton = tw.button`
-  w-16
-  h-16 
+export const StreamButton = tw.button`
+  small:w-16
+  small:h-16 
+  medium:w-20
+  medium:h-20
   border 
   border-slate-200
   dark:border-neutral-700
