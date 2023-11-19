@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 const { shell } = require('electron');
+
+import DefaultImg from 'assets/default.jpeg';
+
 interface StreamBtnProps {
   info: { url: string; img: string };
 }
 
 export default function StreamBtn({ info }: StreamBtnProps) {
   const [isPath, setIsPath] = useState(false);
-
   useEffect(() => {
     const validatePath = () => {
       const http = info.url.split(':');
@@ -25,8 +27,8 @@ export default function StreamBtn({ info }: StreamBtnProps) {
 
   const goToPath = () => {
     if (!isPath) {
-      // window.ipcRenderer.invoke('open-application', info.url);
-      window.ipcRenderer.send('open_app', `chmod +x ${info.url}`);
+      //NOTE - 응용프로그램 열기 (electron 제공)
+      shell.openPath(info.url);
     } else {
       //NOTE - electron프로그램 내부에서 외부사이트 열기
       // window.open(info.url);
@@ -38,7 +40,7 @@ export default function StreamBtn({ info }: StreamBtnProps) {
 
   return (
     <StreamButton onClick={goToPath}>
-      <img src={info.img} alt='' />
+      <img src={info.img || DefaultImg} alt='버튼 이미지' />
     </StreamButton>
   );
 }
