@@ -49,11 +49,9 @@ export default function Header() {
           <AiOutlinePushpin color='gray' />
         )}
       </div>
-      {/*TODO buttons: S M L로 구성  */}
       <div tw='text-xs'>
         <SMButton onClick={changeSmallWindowSize}>S</SMButton>
         <SMButton onClick={changeMediumWindowSize}>M</SMButton>
-        <SizeButton>L</SizeButton>
       </div>
       <div onClick={changeSettingIcon} tw='cursor-pointer'>
         {/* TODO 컬러값만 바뀌는 걸로 수정 */}
