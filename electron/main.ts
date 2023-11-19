@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, screen, dialog } from 'electron';
 import path from 'node:path';
+const { spawn } = require('child_process');
 
 // The built directory structure
 //
@@ -32,7 +33,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: false,
+    // focusable: false, input 입력을 방해함
     fullscreenable: false,
     maximizable: false,
     resizable: process.env.NODE_ENV === 'development',
@@ -114,6 +115,7 @@ ipcMain.handle('show-open-dialog', async () => {
   });
 });
 
+//* 종료
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.

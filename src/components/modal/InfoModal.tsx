@@ -63,8 +63,11 @@ export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
         {/* <label htmlFor='input-img-file'>
           <input type='file' id='input-img-file' />
         </label> */}
-        {/* TODO disabled 조건 추가 */}
-        <SaveBtn onClick={generateStreamBtn} tw='bg-blue-500'>
+        <SaveBtn
+          onClick={generateStreamBtn}
+          disabled={!info.url}
+          tw='bg-blue-500'
+        >
           저장
         </SaveBtn>
       </div>
