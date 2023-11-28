@@ -1,21 +1,23 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-// import StreamBtn from 'components/streamDeck/StreamBtn';
+import uuid from 'react-uuid';
 import CloseIcon from 'assets/icon-add.svg';
-import { useState } from 'react';
-import StreamBtn from '../streamDeck/StreamBtn';
+import { infoType } from '@/types/info';
 
 interface InfoModalProps {
   isOpen?: boolean | undefined;
-  onClose?: () => void | undefined;
-  saveInfo?: (newBtn: JSX.Element) => void;
+  onClose: () => void | undefined;
+  saveInfo: (newBtn: infoType) => void;
 }
 
 export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
   const [info, setInfo] = useState({
+    id: '',
     url: '',
     img: '',
   });
+
   const getProgramPath = () => {
     window.ipcRenderer
       .invoke('show-open-dialog')
@@ -28,13 +30,12 @@ export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
   };
 
   const generateStreamBtn = () => {
-    const NewBtn: JSX.Element = <StreamBtn info={info} />;
-    if (saveInfo) saveInfo(NewBtn);
-
-    setInfo({ url: '', img: '' });
+    const newBtnInfo = { ...info, id: uuid() };
+    if (saveInfo) {
+      saveInfo(newBtnInfo);
+    }
+    setInfo({ id: '', url: '', img: '' });
   };
-
-  console.log(info);
 
   return (
     <InfoModalWrapper>
