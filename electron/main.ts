@@ -1,6 +1,13 @@
-import { app, BrowserWindow, ipcMain, screen, dialog } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  screen,
+  dialog,
+  Menu,
+  MenuItem,
+} from 'electron';
 import path from 'node:path';
-const { spawn } = require('child_process');
 
 // The built directory structure
 //
@@ -77,6 +84,31 @@ app.whenReady().then(() => {
     // win.loadFile('dist/index.html')
     win?.loadFile(path.join(process.env.DIST, 'index.html'));
   }
+});
+
+//* Context Menu
+const ctxMenu = new Menu();
+ctxMenu.append(
+  new MenuItem({
+    label: 'Delete Stream button',
+    click: () => {
+      console.log('deleted this button');
+      win?.webContents.send('delete-this-button');
+    },
+  }),
+);
+ctxMenu.append(
+  new MenuItem({
+    label: 'Delete All Stream button',
+    click: () => {
+      console.log('all deleted buttons');
+      win?.webContents.send('delete-all-buttons');
+    },
+  }),
+);
+
+ipcMain.on('show-context-menu', () => {
+  ctxMenu.popup();
 });
 
 //* 화면사이즈 조정
