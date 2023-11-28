@@ -1,38 +1,57 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import StreamBtn from 'components/streamDeck/StreamBtn';
 import { StreamButton } from 'components/streamDeck/StreamBtn';
+import StreamBtn from 'components/streamDeck/StreamBtn';
 import InfoModal from 'components/modal/InfoModal';
+
+import { infoType } from '@/types/info';
 import PlusIcon from 'assets/icon-add.svg';
 
-type StreamDeckProps = {
-  deckState?: number;
-};
-
-export default function StreamDeck({ deckState }: StreamDeckProps) {
-  const [streamBtns, setStreamBtns] = useState<JSX.Element[]>([]);
+export default function StreamDeck() {
+  // 객체로 저장하기
+  const [streamBtns, setStreamBtns] = useState<infoType[]>([]);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const addStreamBtn = () => {
     setShowInfoModal(true);
   };
 
-  const saveInfo = (newBtn: JSX.Element) => {
-    setStreamBtns((prev) => [...prev, newBtn]);
+  const removeStreamBtn = (infoId: string) => {
+    setStreamBtns((prevStreamBtns) => {
+      const updatedStreamBtns = prevStreamBtns.filter(
+        (info) => info.id !== infoId,
+      );
+      return updatedStreamBtns;
+    });
+  };
+
+  const removeAllBtns = () => {
+    setStreamBtns([]);
+  };
+
+  const saveInfo = (newBtnInfo: infoType) => {
+    setStreamBtns((prev) => [...prev, newBtnInfo]);
     setShowInfoModal(false);
   };
 
   return (
     <StreamDeckWrapper>
       {streamBtns &&
-        streamBtns.map((streamBtn, index) => {
-          return <React.Fragment key={index}>{streamBtn}</React.Fragment>;
+        streamBtns.map((streamInfo) => {
+          return (
+            <StreamBtn
+              key={streamInfo.id}
+              streamInfo={streamInfo}
+              removeStreamBtn={removeStreamBtn}
+              removeAllBtns={removeAllBtns}
+            />
+          );
         })}
       <AddButton onClick={addStreamBtn} />
       {showInfoModal && (
         <InfoModal
-          isOpen={showInfoModal} // 삭제 예정
+          isOpen={showInfoModal}
           onClose={() => setShowInfoModal(false)}
           saveInfo={saveInfo}
         />
