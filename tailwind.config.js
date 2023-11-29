@@ -12,8 +12,9 @@ module.exports = {
         'stream-inner': 'inset 0 0px 10px 0 rgb(255 255 255 / 0.05)',
       },
       screens: {
-        small: '450px',
-        medium: '600px',
+        xs: '350px',
+        small: '400px',
+        medium: '500px',
       },
       backgroundImage: {
         plus: "url('/assets/icon-add.svg')",
