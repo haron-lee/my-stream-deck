@@ -35,8 +35,8 @@ let initPosition: number[] | undefined;
 function createWindow() {
   win = new BrowserWindow({
     title: 'my stream deck application',
-    width: 450,
-    height: 225,
+    width: 350,
+    height: 175,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -60,8 +60,8 @@ app.whenReady().then(() => {
   win?.once('ready-to-show', () => {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
-    const initWidth = 450;
-    const initHeight = 225;
+    const initWidth = 350;
+    const initHeight = 175;
     const x = width - initWidth - 50;
     const y = height - initHeight;
 
@@ -70,7 +70,7 @@ app.whenReady().then(() => {
     win?.show();
   });
 
-  win?.webContents.openDevTools();
+  // win?.webContents.openDevTools();
 
   // 창이 로드 완료되면 Renderer 프로세스로 테스트 메시지를 보냅니다.
   win?.webContents.on('did-finish-load', () => {
@@ -112,20 +112,42 @@ ipcMain.on('show-context-menu', () => {
 });
 
 //* 화면사이즈 조정
-ipcMain.on('resize-small', () => {
-  win?.setSize(450, 225);
+
+ipcMain.on('resize-xs', () => {
+  win?.setSize(350, 175);
 });
 
-ipcMain.on('resize-medium', () => {
-  win?.setSize(600, 250);
+ipcMain.on('resize-small', () => {
+  win?.setSize(400, 200);
 
   const currentPosition = win?.getPosition();
   if (currentPosition && initPosition) {
     const [currentX, currentY] = currentPosition;
     const [initX, initY] = initPosition;
     if (currentX === initX || currentY === initY) {
+      const newX = currentX - 30;
+      const newY = currentY - 30;
+
+      win?.setPosition(newX, newY);
+    }
+  }
+});
+
+ipcMain.on('resize-medium', () => {
+  win?.setSize(500, 250);
+
+  const currentPosition = win?.getPosition();
+  if (currentPosition && initPosition) {
+    const [currentX, currentY] = currentPosition;
+    const [initX, initY] = initPosition;
+    if (currentX === initX - 50 || currentY === initY - 30) {
+      const newX = currentX - 100;
+      const newY = currentY - 30;
+
+      win?.setPosition(newX, newY);
+    } else if (currentX === initX || currentY === initY) {
       const newX = currentX - 150;
-      const newY = currentY - 25;
+      const newY = currentY - 50;
 
       win?.setPosition(newX, newY);
     }
