@@ -86,17 +86,21 @@ export default function StreamBtn({
 
 export const StreamButton = styled.button`
   ${tw`
-    small:w-16
-    small:h-16 
-    medium:w-20
-    medium:h-20
+    w-12
+    h-12
+    xs:w-12
+    xs:h-12
+    small:w-14
+    small:h-14 
+    medium:w-[77px]
+    medium:h-[77px]
     border 
     border-slate-200
     dark:border-neutral-700
     rounded-xl
     shadow-stream-inner 
     overflow-hidden
-`}
+  `}
 
   img {
     width: 100%;
