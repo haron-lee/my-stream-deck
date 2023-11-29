@@ -32,6 +32,10 @@ export default function Header() {
     setSettingClicked(!settingClicked);
   };
 
+  const changeXSwindowSize = () => {
+    window.ipcRenderer.send('resize-xs');
+  };
+
   const changeSmallWindowSize = () => {
     window.ipcRenderer.send('resize-small');
   };
@@ -44,14 +48,15 @@ export default function Header() {
     <SHeader>
       <div onClick={changePinIcon} tw='cursor-pointer'>
         {pinIconClicked ? (
-          <AiFillPushpin color='#EB5757' />
+          <AiFillPushpin color='gray' />
         ) : (
           <AiOutlinePushpin color='gray' />
         )}
       </div>
       <div tw='text-xs'>
-        <SMButton onClick={changeSmallWindowSize}>S</SMButton>
-        <SMButton onClick={changeMediumWindowSize}>M</SMButton>
+        <SizeButton onClick={changeXSwindowSize}>X</SizeButton>
+        <SizeButton onClick={changeSmallWindowSize}>S</SizeButton>
+        <SizeButton onClick={changeMediumWindowSize}>M</SizeButton>
       </div>
       <div onClick={changeSettingIcon} tw='cursor-pointer'>
         {/* TODO 컬러값만 바뀌는 걸로 수정 */}
@@ -79,8 +84,5 @@ const SHeader = tw.header`
 const SizeButton = tw.button`
   text-neutral-500 
   font-bold 
-`;
-
-const SMButton = tw(SizeButton)`
   mr-3
 `;
