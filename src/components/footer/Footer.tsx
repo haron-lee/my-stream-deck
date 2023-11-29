@@ -37,7 +37,7 @@ const SFooter = tw.footer`
   right-0
   px-2
   py-2
-  bg-slate-300
+  bg-slate-200
   dark:bg-dark-bg
   box-border
   flex
@@ -60,7 +60,7 @@ const InputRange = styled.input<{ $opacityZero?: boolean }>`
     background: ${(props) =>
       props.$opacityZero
         ? tw`bg-blue-200 dark:bg-[#d9d9d9]`
-        : tw`bg-blue-500 dark:bg-[#e5e7eb]`};
+        : tw`bg-white dark:bg-[#e5e7eb]`};
   }
 
   &::-webkit-slider-runnable-track {
@@ -68,7 +68,7 @@ const InputRange = styled.input<{ $opacityZero?: boolean }>`
     background: ${(props) =>
       props.$opacityZero
         ? tw`bg-blue-200 dark:bg-[#d9d9d9]`
-        : tw`bg-blue-400 dark:bg-[#e5e7eb]`};
+        : tw`bg-white dark:bg-[#e5e7eb]`};
     border-radius: 10px;
   }
 `;
