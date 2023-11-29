@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 const { shell } = require('electron');
 
-import DefaultImg from 'assets/default.jpeg';
+import DefaultImg from 'assets/default.png';
 
 interface StreamBtnProps {
   streamInfo: { id?: string; url: string; img: string };
