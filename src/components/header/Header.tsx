@@ -6,11 +6,19 @@ import {
   AiOutlineSetting,
   AiFillSetting,
 } from 'react-icons/ai';
+import { BsCircle, BsCircleFill } from 'react-icons/bs';
 import './header.css';
 
 export default function Header() {
   const [pinIconClicked, setPinIconClicked] = useState(false);
   const [settingClicked, setSettingClicked] = useState(false);
+  const [btnState, setBtnState] = useState([true, false, false]);
+
+  const changeButtonIcon = (index: number) => {
+    const newState = Array(3).fill(false); // 초기에 모든 값을 false로 초기화
+    newState[index] = true; // 클릭된 버튼의 인덱스만 true로 설정
+    setBtnState(newState);
+  };
 
   window.ipcRenderer.send('get-window-state');
   window.ipcRenderer.on('window-state', (_, state) => {
@@ -34,14 +42,17 @@ export default function Header() {
 
   const changeXSwindowSize = () => {
     window.ipcRenderer.send('resize-xs');
+    changeButtonIcon(0);
   };
 
   const changeSmallWindowSize = () => {
     window.ipcRenderer.send('resize-small');
+    changeButtonIcon(1);
   };
 
   const changeMediumWindowSize = () => {
     window.ipcRenderer.send('resize-medium');
+    changeButtonIcon(2);
   };
 
   return (
@@ -54,9 +65,27 @@ export default function Header() {
         )}
       </div>
       <div tw='text-xs'>
-        <SizeButton onClick={changeXSwindowSize}>X</SizeButton>
-        <SizeButton onClick={changeSmallWindowSize}>S</SizeButton>
-        <SizeButton onClick={changeMediumWindowSize}>M</SizeButton>
+        <SizeButton onClick={changeXSwindowSize}>
+          {btnState[0] ? (
+            <BsCircleFill size='9' color='gray' />
+          ) : (
+            <BsCircle size='9' />
+          )}
+        </SizeButton>
+        <SizeButton onClick={changeSmallWindowSize}>
+          {btnState[1] ? (
+            <BsCircleFill size='9' color='gray' />
+          ) : (
+            <BsCircle size='9' />
+          )}
+        </SizeButton>
+        <SizeButton onClick={changeMediumWindowSize}>
+          {btnState[2] ? (
+            <BsCircleFill size='9' color='gray' />
+          ) : (
+            <BsCircle size='9' />
+          )}
+        </SizeButton>
       </div>
       <div onClick={changeSettingIcon} tw='cursor-pointer'>
         {/* TODO 컬러값만 바뀌는 걸로 수정 */}
@@ -85,4 +114,5 @@ const SizeButton = tw.button`
   text-neutral-500 
   font-bold 
   mr-3
+  align-middle
 `;
