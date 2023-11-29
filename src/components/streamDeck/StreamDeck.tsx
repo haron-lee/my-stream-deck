@@ -9,7 +9,6 @@ import { infoType } from '@/types/info';
 import PlusIcon from 'assets/icon-add.svg';
 
 export default function StreamDeck() {
-  // 객체로 저장하기
   const [streamBtns, setStreamBtns] = useState<infoType[]>([]);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -48,7 +47,7 @@ export default function StreamDeck() {
             />
           );
         })}
-      <AddButton onClick={addStreamBtn} />
+      {streamBtns.length < 10 && <AddButton onClick={addStreamBtn} />}
       {showInfoModal && (
         <InfoModal
           isOpen={showInfoModal}
@@ -61,9 +60,11 @@ export default function StreamDeck() {
 }
 
 const StreamDeckWrapper = tw.div`
-  p-4 
+  xs:p-2
+  small:p-3.5 
+  medium:p-4
   flex 
-  gap-5 
+  gap-4 
   justify-center
   flex-wrap
 `;
