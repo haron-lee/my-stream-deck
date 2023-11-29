@@ -39,7 +39,7 @@ export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
 
   return (
     <InfoModalWrapper>
-      <div tw='flex flex-col justify-center gap-4  py-6 px-10  bg-white dark:bg-bg'>
+      <div tw='flex flex-col justify-center gap-1 medium:gap-4  py-2 px-10  bg-white dark:bg-bg'>
         <CloseBtn onClick={onClose} />
         <div tw='flex'>
           <Label htmlFor='input-url'>URL</Label>
@@ -52,7 +52,7 @@ export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
           />
           <button
             onClick={getProgramPath}
-            tw='ml-5 px-2 rounded bg-neutral-500 text-white text-sm'
+            tw='ml-3  px-2 rounded bg-blue-400 text-white text-sm'
           >
             Import
           </button>
@@ -77,6 +77,7 @@ export default function InfoModal({ onClose, saveInfo }: InfoModalProps) {
 }
 
 const InfoModalWrapper = tw.div`
+  py-1
   absolute
   left-0
   right-0 
@@ -90,21 +91,23 @@ const Label = tw.label`
   items-end
   text-neutral-500 
   text-center
+  text-sm
   basis-1/5
 `;
 
 const URLInput = tw.input`
   p-1
-  text-neutral-500
+  text-neutral-400
   ml-4
   bg-inherit
   border-b
-  border-neutral-500
+  border-neutral-300
+  xs:w-10
   basis-2/4
 `;
 
 const CloseBtn = styled.button`
-  ${tw`absolute top-2 right-4 w-5 h-5`}
+  ${tw`absolute top-1 xs:right-2 small:right-4 medium:right-4 w-5 h-5`}
   background:  url(${CloseIcon}) no-repeat center/23px;
   transform: rotate(45deg);
 `;
@@ -112,13 +115,14 @@ const CloseBtn = styled.button`
 const SaveBtn = tw.button`
   w-2/5
   mt-2
+  xs:text-sm
   py-1
   rounded
-  bg-blue-500
+  bg-blue-400
   text-white
   self-center
-  disabled:dark:bg-neutral-300
-  disabled:dark:text-neutral-600
-  disabled:bg-neutral-700
+  disabled:dark:bg-neutral-700
+  disabled:dark:text-neutral-500
   disabled:bg-neutral-300
+  disabled:text-white
 `;
