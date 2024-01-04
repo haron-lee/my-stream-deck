@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+
+// const Store = require('electron-store');
+import ElectronStore from 'electron-store';
 import { StreamButton } from 'components/streamDeck/StreamBtn';
 import StreamBtn from 'components/streamDeck/StreamBtn';
 import InfoModal from 'components/modal/InfoModal';
@@ -9,7 +12,11 @@ import { infoType } from '@/types/info';
 import PlusIcon from 'assets/icon-add.svg';
 
 export default function StreamDeck() {
-  const [streamBtns, setStreamBtns] = useState<infoType[]>([]);
+  // const store = new Store();
+  const store = new ElectronStore();
+  const [streamBtns, setStreamBtns] = useState<infoType[]>(
+    store.get('stream-btns') as infoType[],
+  );
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const addStreamBtn = () => {
@@ -21,6 +28,8 @@ export default function StreamDeck() {
       const updatedStreamBtns = prevStreamBtns.filter(
         (info) => info.id !== infoId,
       );
+
+      store.set('stream-btns', updatedStreamBtns);
       return updatedStreamBtns;
     });
   };
@@ -30,8 +39,13 @@ export default function StreamDeck() {
   };
 
   const saveInfo = (newBtnInfo: infoType) => {
-    setStreamBtns((prev) => [...prev, newBtnInfo]);
+    setStreamBtns((prev) => {
+      const updatedStreamBtns = [...prev, newBtnInfo];
+      store.set('stream-btns', updatedStreamBtns);
+      return updatedStreamBtns;
+    });
     setShowInfoModal(false);
+    console.log(store.get('stream-btns'));
   };
 
   return (

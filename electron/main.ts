@@ -8,6 +8,7 @@ import {
   MenuItem,
 } from 'electron';
 import path from 'node:path';
+import ElectronStore from 'electron-store';
 
 // The built directory structure
 //
@@ -48,6 +49,8 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false,
+      devTools: !app.isPackaged,
+      // webSecurity: app.isPackaged,
     },
     show: false,
   });
@@ -85,6 +88,8 @@ app.whenReady().then(() => {
     win?.loadFile(path.join(process.env.DIST, 'index.html'));
   }
 });
+
+ElectronStore.initRenderer();
 
 //* Context Menu
 const ctxMenu = new Menu();
