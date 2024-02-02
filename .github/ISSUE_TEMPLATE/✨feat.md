@@ -1,12 +1,12 @@
 ---
-name: "✨Feat"
+name: '✨'
 about: Describe this issue template's purpose here.
-title: "✨Feat: "
+title: '✨Feat: '
 labels: ''
 assignees: ''
-
 ---
 
-## 이슈 내용
-- [ ] 
+## ✨
+
+- [ ]
 - [ ]

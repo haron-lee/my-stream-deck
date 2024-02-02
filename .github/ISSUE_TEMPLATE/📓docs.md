@@ -1,12 +1,12 @@
 ---
-name: "\U0001F41EBug"
+name: '📓Docs'
 about: Describe this issue template's purpose here.
-title: "\U0001F41E"
+title: '📓'
 labels: ''
 assignees: ''
 ---
 
-## 🐞
+## 📓
 
 - [ ]
 - [ ]
