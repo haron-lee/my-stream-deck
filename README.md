@@ -34,6 +34,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#security-updates">Security Updates</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -139,6 +140,41 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right"><a href="#readme-top">⬆️</a></p>
+
+<!-- SECURITY -->
+
+## Security Updates
+
+### 2026-03-20
+
+Dependabot 보안 알림(CVE-2026-27904 외)에 따라 의존성 보안 패치를 진행했습니다.
+
+**업그레이드 완료 (87 → 22 vulnerabilities, Critical 5 → 0)**
+
+| 패키지 | 이전 버전 | 변경 버전 | 해결된 취약점 |
+|--------|----------|----------|-------------|
+| vite | ^4.4.9 | ^4.5.14 | XSS, server.fs.deny bypass 등 다수 |
+| electron-builder | ^24.6.4 | ^24.13.2 | form-data, tar, ejs, lodash |
+| @vitejs/plugin-react | ^4.0.4 | ^4.3.4 | @babel/traverse (Critical) |
+| eslint | ^8.48.0 | ^8.57.0 | cross-spawn, flatted, js-yaml |
+| @typescript-eslint/* | ^6.6.0 | ^6.21.0 | braces, micromatch |
+| styled-components | ^6.0.8 | ^6.1.13 | @babel/traverse, @babel/runtime |
+| postcss | ^8.4.31 | ^8.5.3 | nanoid |
+| tailwindcss | ^3.3.3 | ^3.4.17 | braces, micromatch |
+
+추가로 `resolutions`를 통해 하위 의존성(minimatch, cross-spawn, rollup, ajv 등)도 패치했습니다.
+
+**Major 업그레이드 필요 (남은 22개 취약점)**
+
+아래 패키지들은 major 버전 업그레이드가 필요하며, breaking changes가 있어 별도 대응이 필요합니다.
+
+| 패키지 | 현재 버전 | 필요 버전 | 심각도 | 비고 |
+|--------|----------|----------|--------|------|
+| vite | 4.x | >=5.4.20 | Moderate/Low | 플러그인 호환성 확인 필요 |
+| electron | 26.x | >=28.3.2 | Moderate | Electron API breaking changes |
+| esbuild | 0.18.x | >=0.25.0 | Moderate | vite 내부 의존성, vite 5.x 업그레이드 시 함께 해결 |
+| tar | 6.x | >=7.5.7 | High | electron-builder 내부 의존성 |
+| @tootallnate/once | 2.x | >=3.0.1 | Low | electron-builder 내부 의존성 |
 
 <!-- LICENSE -->
 
